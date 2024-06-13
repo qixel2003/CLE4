@@ -1,6 +1,7 @@
 import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
+import { Player } from './player.js'
 import { Level } from './room1.js'
 // import { Level2 } from './room2.js'
 // import { GameOver } from './game_over.js'
@@ -33,6 +34,8 @@ export class Game extends Engine {
         // this.add('levelclear', new LevelClear())
         // this.goToScene('intro')
         this.goToScene('room1')
+        const player = new Player;
+        this.add(player)
     }
 
 }
