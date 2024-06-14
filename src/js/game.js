@@ -1,8 +1,8 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, Color, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
-import { Level } from './room1.js'
+// import { Level } from './room1.js'
 // import { Level2 } from './room2.js'
 // import { GameOver } from './game_over.js'
 // import { LevelClear } from './levelclear.js'
@@ -28,12 +28,12 @@ export class Game extends Engine {
 
     startGame() {
         // this.add('intro', new Intro())
-        this.add('room1', new Room1())
+        // this.add('room1', new Room1())
         // this.add('room2', new Room2())
         // this.add('gameover', new GameOver())
         // this.add('levelclear', new LevelClear())
         // this.goToScene('intro')
-        this.goToScene('room1')
+        // this.goToScene('room1')
         const player = new Player;
         this.add(player)
     }
