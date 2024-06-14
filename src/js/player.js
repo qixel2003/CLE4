@@ -1,4 +1,5 @@
 import { Actor, Color, Vector, Input, CollisionType } from "excalibur";
+import { Resources, ResourceLoader } from './resources.js'
 
 export class Player extends Actor {
     constructor(health, attack, defense, rangedAttack) {
