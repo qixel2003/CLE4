@@ -2,6 +2,7 @@ import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode, Color, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
+import { Hostage } from './hostage.js'
 // import { Level } from './room1.js'
 // import { Level2 } from './room2.js'
 // import { GameOver } from './game_over.js'
@@ -34,8 +35,12 @@ export class Game extends Engine {
         // this.add('levelclear', new LevelClear())
         // this.goToScene('intro')
         // this.goToScene('room1')
-        const player = new Player;
+
+        //Player heeft nodig: health, attack, defence en rangedAttack unlock.
+        const player = new Player(100, 20, 20, false);
         this.add(player)
+        const hostage = new Hostage(new Vector(400, 500))
+        this.add(hostage)
     }
 
 }

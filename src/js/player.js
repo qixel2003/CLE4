@@ -1,13 +1,20 @@
-import { Actor, Color, Vector, Input } from "excalibur";
+import { Actor, Color, Vector, Input, CollisionType } from "excalibur";
 
 export class Player extends Actor {
-    constructor() {
+    constructor(health, attack, defense, rangedAttack) {
         super({
             pos: new Vector(400, 300), // Start Positie
             width: 50,
             height: 50,
             color: Color.Red, // Tijdelijke kleur
         })
+        this.health = health;
+        this.attack = attack;
+        this.defense = defense;
+        this.rangedAttack = rangedAttack;
+
+        //Zet collision op Active voor de beste ervaring.
+        this.CollisionType = CollisionType.Active;
     }
 
     // Update function voor speler movement
@@ -61,6 +68,7 @@ export class Player extends Actor {
             height: 30,
             color: Color.Yellow // Attack color
         });
+        attack.CollisionType = CollisionType.Active;
 
         // Add melee attack in de game.
         this.scene.add(attack);
