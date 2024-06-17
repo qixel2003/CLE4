@@ -1,4 +1,4 @@
-import { Actor, Color, Vector, Label, CollisionType, Engine, FontUnit, FontStyle } from "excalibur";
+import { Actor, Color, Vector, Label, CollisionType, Engine, FontUnit, FontStyle, TextAlign } from "excalibur";
 
 export class Hostage extends Actor {
     constructor(position) {
@@ -10,23 +10,20 @@ export class Hostage extends Actor {
             collisionType: CollisionType.Fixed // Hostage is immovable
         });
 
-        this.text = "Hallo";
+        this.text = "Help me!!!";
     }
 
     onInitialize(engine) {
-        // Create a label for the text popup
+        // Create a label and configure its appearance
         const label = new Label({
             text: this.text,
-            pos: this.pos.add(new Vector(0, -this.height - 20)), // Position the label above the hostage
+            pos: new Vector(0, -this.height / 2 - 20), // Position above the actor
             color: Color.White,
-            fontSize: 20,
-            fontUnit: FontUnit.Px, // Use pixels for font size
+            fontSize: 20, // Font size in pixels
+            fontUnit: FontUnit.Px,
             fontStyle: FontStyle.Normal,
-            textAlign: 'center'
+            textAlign: TextAlign.Center // Center align the text
         });
-
-        // Center the label above the hostage
-        label.anchor = new Vector(0.5, 1); // Adjust anchor to center horizontally and place above
 
         // Add the label as a child of the hostage
         this.addChild(label);
