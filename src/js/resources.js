@@ -10,6 +10,7 @@ const Resources = {
     MCSL: new ImageSource('images/mc_side_left.png'),
     //Main Character Sprites End
     MeleeAttack: new ImageSource('images/melee_attack.png')
+    Player: new ImageSource('images/mc_front.png')
 }
 
 
