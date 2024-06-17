@@ -10,6 +10,15 @@ function range(start, end) {
     return arr;
 }
 
+// Utility function to generate a range of numbers
+function range(start, end) {
+    let arr = [];
+    for (let i = start; i <= end; i++) {
+        arr.push(i);
+    }
+    return arr;
+}
+
 export class Player extends Actor {
     constructor(health, attack, defense, rangedAttack) {
         super({
@@ -51,21 +60,27 @@ export class Player extends Actor {
         let vel = Vector.Zero
         this.graphics.use('idle')
 
+        this.graphics.use('idle')
+
         // Lees welke key er wordt gedrukt
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
             vel = vel.add(new Vector(0, -1));
+            this.graphics.use('runfront')
             this.graphics.use('runfront')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.S)) {
             vel = vel.add(new Vector(0, 1));
             this.graphics.use('runback')
+            this.graphics.use('runback')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.A)) {
             vel = vel.add(new Vector(-1, 0));
             this.graphics.use('runleft')
+            this.graphics.use('runleft')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.D)) {
             vel = vel.add(new Vector(1, 0));
+            this.graphics.use('runright')
             this.graphics.use('runright')
         }
 
