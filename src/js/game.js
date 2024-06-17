@@ -14,8 +14,8 @@ const options = {
     backgroundColor: Color.Black,
     displayMode: DisplayMode.FitScreen,
     physics: {
-        solver: SolverStrategy.Realistic,
-        gravity: new Vector(0, 800),
+        // solver: SolverStrategy.Realistic,
+        // gravity: new Vector(0, 800),
     }
 }
 

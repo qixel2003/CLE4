@@ -69,7 +69,7 @@ export class Player extends Actor {
 
         // Position the attack in front of the player
         // The attack is positioned slightly in front of the player in the direction of movement
-        const attackOffset = attackDirection.scale(this.width / 2 + 15);
+        const attackOffset = attackDirection.scale(this.width / 2 + 20);
 
         let attack = new Actor({
             pos: this.pos.add(attackOffset), // Place the attack in front of the player
