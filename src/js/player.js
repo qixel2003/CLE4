@@ -1,5 +1,14 @@
-import { Actor, Color, Vector, Input } from "excalibur";
+import { Actor, Color, Vector, Input, SpriteSheet, Animation} from "excalibur";
 import { Resources, ResourceLoader } from './resources.js'
+
+// Utility function to generate a range of numbers
+function range(start, end) {
+    let arr = [];
+    for (let i = start; i <= end; i++) {
+        arr.push(i);
+    }
+    return arr;
+}
 
 export class Player extends Actor {
     constructor() {
@@ -9,24 +18,47 @@ export class Player extends Actor {
             height: 50,
             color: Color.Red, // Tijdelijke kleur
         })
+        const runSheet = SpriteSheet.fromImageSource({
+            image: Resources.Player1,
+            grid: { rows: 1, columns: 10, spriteWidth: 50, spriteHeight: 50 }
+        })
+        const idle = runSheet.sprites[0] // geen animatie
+        const runLeft = Animation.fromSpriteSheet(runSheet, range(8, 9), 80)
+        const runRight = Animation.fromSpriteSheet(runSheet, range(6, 7), 80)
+        const runFront = Animation.fromSpriteSheet(runSheet, range(1, 2), 80)
+        const runBack = Animation.fromSpriteSheet(runSheet, range(3, 4), 80)
+
+        this.graphics.add("idle", idle)
+        this.graphics.add("runleft", runLeft)
+        this.graphics.add("runright", runRight)
+        this.graphics.add("runfront", runFront)
+        this.graphics.add("runback", runBack)
+
+        this.graphics.use(idle)
     }
 
     // Update function voor speler movement
     onPreUpdate(engine) {
         let speed = 200;
         let vel = Vector.Zero
+        this.graphics.use('idle')
+
         // Lees welke key er wordt gedrukt
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
             vel = vel.add(new Vector(0, -1));
+            this.graphics.use('runfront')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.S)) {
             vel = vel.add(new Vector(0, 1));
+            this.graphics.use('runback')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.A)) {
             vel = vel.add(new Vector(-1, 0));
+            this.graphics.use('runleft')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.D)) {
             vel = vel.add(new Vector(1, 0));
+            this.graphics.use('runright')
         }
 
         // Normalize zorgt ervoor dat je niet diagonaal sneller beweegt
