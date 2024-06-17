@@ -1,4 +1,4 @@
-import { Actor, Color, Vector, Input, SpriteSheet, Animation} from "excalibur";
+import { Actor, Color, Vector, Input, SpriteSheet, Animation, CollisionType} from "excalibur";
 import { Resources, ResourceLoader } from './resources.js'
 
 // Utility function to generate a range of numbers
@@ -16,7 +16,7 @@ export class Player extends Actor {
             pos: new Vector(400, 300), // Start Positie
             width: 50,
             height: 50,
-            color: Color.Red, // Tijdelijke kleur
+            color: Color.Red, // Tijdelijke kleur   
         })
         this.health = health;
         this.attack = attack;
@@ -25,16 +25,16 @@ export class Player extends Actor {
 
         //Zet collision op Active voor de beste ervaring.
         this.CollisionType = CollisionType.Active;
-        this.graphics.use(Resources.MCF.toSprite());
+        // this.graphics.use(Resources.MCF.toSprite());
         const runSheet = SpriteSheet.fromImageSource({
             image: Resources.Player1,
-            grid: { rows: 1, columns: 10, spriteWidth: 50, spriteHeight: 50 }
+            grid: { rows: 1, columns: 10, spriteWidth: 96, spriteHeight: 96 }
         })
         const idle = runSheet.sprites[0] // geen animatie
         const runLeft = Animation.fromSpriteSheet(runSheet, range(8, 9), 80)
         const runRight = Animation.fromSpriteSheet(runSheet, range(6, 7), 80)
-        const runFront = Animation.fromSpriteSheet(runSheet, range(1, 2), 80)
-        const runBack = Animation.fromSpriteSheet(runSheet, range(3, 4), 80)
+        const runBack = Animation.fromSpriteSheet(runSheet, range(1, 2), 80)
+        const runFront = Animation.fromSpriteSheet(runSheet, range(3, 4), 80)
 
         this.graphics.add("idle", idle)
         this.graphics.add("runleft", runLeft)
@@ -54,19 +54,6 @@ export class Player extends Actor {
         // Lees welke key er wordt gedrukt
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
             vel = vel.add(new Vector(0, -1));
-            this.graphics.use(Resources.MCB.toSprite());
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.S)) {
-            vel = vel.add(new Vector(0, 1));
-            this.graphics.use(Resources.MCF.toSprite());
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.A)) {
-            vel = vel.add(new Vector(-1, 0));
-            this.graphics.use(Resources.MCSL.toSprite());
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.D)) {
-            vel = vel.add(new Vector(1, 0));
-            this.graphics.use(Resources.MCSR.toSprite());
             this.graphics.use('runfront')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.S)) {
