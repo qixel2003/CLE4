@@ -10,15 +10,6 @@ function range(start, end) {
     return arr;
 }
 
-// Utility function to generate a range of numbers
-function range(start, end) {
-    let arr = [];
-    for (let i = start; i <= end; i++) {
-        arr.push(i);
-    }
-    return arr;
-}
-
 export class Player extends Actor {
     constructor(health, attack, defense, rangedAttack) {
         super({
