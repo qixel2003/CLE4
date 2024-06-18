@@ -25,7 +25,6 @@ export class Player extends Actor {
 
         //Zet collision op Active voor de beste ervaring.
         this.CollisionType = CollisionType.Active;
-        this.graphics.use(Resources.MCF.toSprite());
         const runSheet = SpriteSheet.fromImageSource({
             image: Resources.Player1,
             grid: { rows: 1, columns: 10, spriteWidth: 96, spriteHeight: 96 }
