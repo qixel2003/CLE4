@@ -3,6 +3,7 @@ import { Actor, Engine, Vector, DisplayMode, Color, SolverStrategy } from "excal
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
 import { Hostage } from './hostage.js'
+import { Powerup } from './powerup.js'
 
 // import { Level } from './room1.js'
 // import { Level2 } from './room2.js'
@@ -37,11 +38,17 @@ export class Game extends Engine {
         // this.goToScene('intro')
         // this.goToScene('room1')
 
-        //Player heeft nodig: health, attack, defence en rangedAttack unlock.
-        const player = new Player(100, 20, 20, false);
+        //Player heeft nodig: health, attack, defence, speed en rangedAttack unlock.
+        const player = new Player(100, 20, 20, 200, false);
         this.add(player)
         const hostage = new Hostage(new Vector(400, 500))
         this.add(hostage)
+        var attackBoost = new Powerup(200, 100, 'attack', 5000); // Attack boost, 5 seconds duration
+        var shield = new Powerup(300, 100, 'shield', 5000); // Shield, 5 seconds duration
+        var speedBoost = new Powerup(400, 100, 'speed', 5000); // Speed boost, 5 seconds duration
+        this.add(attackBoost);
+        this.add(shield);
+        this.add(speedBoost);
     }
 
 }

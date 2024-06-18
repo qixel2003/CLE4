@@ -1,82 +1,79 @@
-import { Actor, Color, Vector, Input, CollisionType, SpriteSheet, Animation } from "excalibur";
-import { Resources, ResourceLoader } from './resources.js'
-
-// Utility function to generate a range of numbers
-function range(start, end) {
-    let arr = [];
-    for (let i = start; i <= end; i++) {
-        arr.push(i);
-    }
-    return arr;
-}
+import { Actor, Color, Vector, Input, CollisionType, Animation, SpriteSheet } from "excalibur";
+import { Resources } from './resources';  // Ensure this path is correct based on your file structure
 
 export class Player extends Actor {
-    constructor(health, attack, defense, rangedAttack) {
+    health;
+    attack;
+    defense;
+    rangedAttack;
+    shielded;
+
+    constructor(health, attack, defense, speed, rangedAttack) {
         super({
-            pos: new Vector(400, 300), // Start Positie
+            pos: new Vector(400, 300),
             width: 50,
             height: 50,
-            color: Color.Red, // Tijdelijke kleur   
-        })
+            color: Color.Red,
+            collisionType: CollisionType.Active // Set collision to Active
+        });
         this.health = health;
         this.attack = attack;
         this.defense = defense;
+        this.speed = speed;
         this.rangedAttack = rangedAttack;
+        this.shielded = false; // Initialize shielded state
 
-        //Zet collision op Active voor de beste ervaring.
-        this.CollisionType = CollisionType.Active;
+        // Setup player animations (assumed to be defined in your resources)
         const runSheet = SpriteSheet.fromImageSource({
             image: Resources.Player1,
             grid: { rows: 1, columns: 10, spriteWidth: 96, spriteHeight: 96 }
-        })
-        const idle = runSheet.sprites[0] // geen animatie
-        const runLeft = Animation.fromSpriteSheet(runSheet, range(8, 9), 80)
-        const runRight = Animation.fromSpriteSheet(runSheet, range(6, 7), 80)
-        const runBack = Animation.fromSpriteSheet(runSheet, range(1, 2), 80)
-        const runFront = Animation.fromSpriteSheet(runSheet, range(3, 4), 80)
+        });
 
-        this.graphics.add("idle", idle)
-        this.graphics.add("runleft", runLeft)
-        this.graphics.add("runright", runRight)
-        this.graphics.add("runfront", runFront)
-        this.graphics.add("runback", runBack)
+        const idle = runSheet.sprites[0];
+        const runLeft = Animation.fromSpriteSheet(runSheet, [8, 9], 80);
+        const runRight = Animation.fromSpriteSheet(runSheet, [6, 7], 80);
+        const runBack = Animation.fromSpriteSheet(runSheet, [1, 2], 80);
+        const runFront = Animation.fromSpriteSheet(runSheet, [3, 4], 80);
 
-        this.graphics.use(idle)
+        this.graphics.add("idle", idle);
+        this.graphics.add("runleft", runLeft);
+        this.graphics.add("runright", runRight);
+        this.graphics.add("runfront", runFront);
+        this.graphics.add("runback", runBack);
+
+        this.graphics.use(idle);
     }
 
-    // Update function voor speler movement
     onPreUpdate(engine) {
-        let speed = 200;
-        let vel = Vector.Zero
-        this.graphics.use('idle')
+        let speed = this.speed;
+        let vel = Vector.Zero;
+        this.graphics.use('idle');
 
-        this.graphics.use('idle')
-
-        // Lees welke key er wordt gedrukt
+        // Handle movement input
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
             vel = vel.add(new Vector(0, -1));
-            this.graphics.use('runfront')
+            this.graphics.use('runfront');
         }
         if (engine.input.keyboard.isHeld(Input.Keys.S)) {
             vel = vel.add(new Vector(0, 1));
-            this.graphics.use('runback')
+            this.graphics.use('runback');
         }
         if (engine.input.keyboard.isHeld(Input.Keys.A)) {
             vel = vel.add(new Vector(-1, 0));
-            this.graphics.use('runleft')
+            this.graphics.use('runleft');
         }
         if (engine.input.keyboard.isHeld(Input.Keys.D)) {
             vel = vel.add(new Vector(1, 0));
-            this.graphics.use('runright')
+            this.graphics.use('runright');
         }
 
-        // Normalize zorgt ervoor dat je niet diagonaal sneller beweegt
+        // Normalize velocity to maintain consistent speed in diagonal movement
         if (!vel.equals(Vector.Zero)) {
             vel = vel.normalize().scale(speed);
         }
         this.vel = vel;
 
-        // Handler melee attack
+        // Handle melee attack
         if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
             this.meleeAttack();
         }
@@ -97,38 +94,30 @@ export class Player extends Actor {
         }
 
         // Position the attack in front of the player
-        // The attack is positioned slightly in front of the player in the direction of movement
         const attackOffset = attackDirection.scale(this.width / 2 + 20);
-
         let attack = new Actor({
-            pos: this.pos.add(attackOffset), // Place the attack in front of the player
-            width: 30,    // Define the collision hitbox width
-            height: 30,   // Define the collision hitbox height
-            color: Color.Transparent // Set to transparent if using a sprite
+            pos: this.pos.add(attackOffset),
+            width: 30,
+            height: 30,
+            color: Color.Transparent,
+            collisionType: CollisionType.Active
         });
-
-        attack.body.collisionType = CollisionType.Active;
 
         // Add and configure the melee attack sprite
         const meleeSprite = Resources.MeleeAttack.toSprite();
         meleeSprite.scale = new Vector(0.5, 0.5); // Scale the sprite down
+        meleeSprite.anchor = new Vector(0.5, 0.5); // Set the sprite's anchor to its center
+        meleeSprite.rotation = Math.atan2(attackDirection.y, attackDirection.x); // Rotate to match the attack direction
 
-        // Set the sprite's anchor to its center
-        meleeSprite.anchor = new Vector(0.5, 0.5);
-
-        // Rotate the sprite to match the attack direction
-        const rotationAngle = Math.atan2(attackDirection.y, attackDirection.x);
-        meleeSprite.rotation = rotationAngle;
-
-        // Use the sprite for the attack's graphics
         attack.graphics.use(meleeSprite);
 
-        // Add the attack to the scene
+        // Add the attack to the scene and remove it after a short delay
         this.scene.add(attack);
-
-        // Remove the attack after a short delay (200 milliseconds)
         setTimeout(() => {
             this.scene.remove(attack);
         }, 200);
     }
-} 
+    onPostUpdate(engine, delta) {
+       
+    }
+}
