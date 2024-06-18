@@ -16,7 +16,7 @@ export class Player extends Actor {
             pos: new Vector(400, 300), // Start Positie
             width: 50,
             height: 50,
-            color: Color.Red, // Tijdelijke kleur
+            color: Color.Red, // Tijdelijke kleur   
         })
         this.health = health;
         this.attack = attack;
@@ -28,13 +28,13 @@ export class Player extends Actor {
         this.graphics.use(Resources.MCF.toSprite());
         const runSheet = SpriteSheet.fromImageSource({
             image: Resources.Player1,
-            grid: { rows: 1, columns: 10, spriteWidth: 50, spriteHeight: 50 }
+            grid: { rows: 1, columns: 10, spriteWidth: 96, spriteHeight: 96 }
         })
         const idle = runSheet.sprites[0] // geen animatie
         const runLeft = Animation.fromSpriteSheet(runSheet, range(8, 9), 80)
         const runRight = Animation.fromSpriteSheet(runSheet, range(6, 7), 80)
-        const runFront = Animation.fromSpriteSheet(runSheet, range(1, 2), 80)
-        const runBack = Animation.fromSpriteSheet(runSheet, range(3, 4), 80)
+        const runBack = Animation.fromSpriteSheet(runSheet, range(1, 2), 80)
+        const runFront = Animation.fromSpriteSheet(runSheet, range(3, 4), 80)
 
         this.graphics.add("idle", idle)
         this.graphics.add("runleft", runLeft)
@@ -49,6 +49,8 @@ export class Player extends Actor {
     onPreUpdate(engine) {
         let speed = 200;
         let vel = Vector.Zero
+        this.graphics.use('idle')
+
         this.graphics.use('idle')
 
         // Lees welke key er wordt gedrukt
