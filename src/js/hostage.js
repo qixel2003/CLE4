@@ -17,7 +17,7 @@ export class Hostage extends Actor {
         // Create a label and configure its appearance
         const label = new Label({
             text: this.text,
-            pos: new Vector(0, -this.height / 2 - 20), // Position above the actor
+            pos: new Vector(-25, -this.height / 2 - 20), // Position above the actor
             color: Color.White,
             fontSize: 20, // Font size in pixels
             fontUnit: FontUnit.Px,

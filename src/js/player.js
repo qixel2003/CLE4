@@ -1,4 +1,4 @@
-import { Actor, Color, Vector, Input, SpriteSheet, Animation, CollisionType} from "excalibur";
+import { Actor, Color, Vector, Input, CollisionType, SpriteSheet, Animation } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js'
 
 // Utility function to generate a range of numbers
@@ -25,7 +25,6 @@ export class Player extends Actor {
 
         //Zet collision op Active voor de beste ervaring.
         this.CollisionType = CollisionType.Active;
-        // this.graphics.use(Resources.MCF.toSprite());
         const runSheet = SpriteSheet.fromImageSource({
             image: Resources.Player1,
             grid: { rows: 1, columns: 10, spriteWidth: 96, spriteHeight: 96 }
@@ -57,21 +56,17 @@ export class Player extends Actor {
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
             vel = vel.add(new Vector(0, -1));
             this.graphics.use('runfront')
-            this.graphics.use('runfront')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.S)) {
             vel = vel.add(new Vector(0, 1));
-            this.graphics.use('runback')
             this.graphics.use('runback')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.A)) {
             vel = vel.add(new Vector(-1, 0));
             this.graphics.use('runleft')
-            this.graphics.use('runleft')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.D)) {
             vel = vel.add(new Vector(1, 0));
-            this.graphics.use('runright')
             this.graphics.use('runright')
         }
 
@@ -103,7 +98,7 @@ export class Player extends Actor {
 
         // Position the attack in front of the player
         // The attack is positioned slightly in front of the player in the direction of movement
-        const attackOffset = attackDirection.scale(this.width / 2 + 15);
+        const attackOffset = attackDirection.scale(this.width / 2 + 20);
 
         let attack = new Actor({
             pos: this.pos.add(attackOffset), // Place the attack in front of the player
