@@ -24,10 +24,10 @@ export class Player extends Actor {
             width: 50,
             height: 50,
             color: Color.Red,
-            collisionType: CollisionType.Active // Set collision to Active
-        });
+            collisionType: CollisionType.Active, // Set collision to Active
             color: Color.Red, // Tijdelijke kleur   
         });
+
         this.health = health;
         this.attack = attack;
         this.defense = defense;

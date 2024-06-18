@@ -39,8 +39,7 @@ export class Game extends Engine {
         // this.goToScene('intro')
         // this.goToScene('room1')
 
-        //Player heeft nodig: health, attack, defence, speed en rangedAttack unlock.
-        const player = new Player(100, 20, 20, 200, false);
+        
         //Player heeft nodig: health, attack, defence en rangedAttack unlock.
         const player = new Player(10, 2, 20, false);
         this.add(player)
