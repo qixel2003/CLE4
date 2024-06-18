@@ -56,19 +56,6 @@ export class Player extends Actor {
         // Lees welke key er wordt gedrukt
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
             vel = vel.add(new Vector(0, -1));
-            this.graphics.use(Resources.MCB.toSprite());
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.S)) {
-            vel = vel.add(new Vector(0, 1));
-            this.graphics.use(Resources.MCF.toSprite());
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.A)) {
-            vel = vel.add(new Vector(-1, 0));
-            this.graphics.use(Resources.MCSL.toSprite());
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.D)) {
-            vel = vel.add(new Vector(1, 0));
-            this.graphics.use(Resources.MCSR.toSprite());
             this.graphics.use('runfront')
         }
         if (engine.input.keyboard.isHeld(Input.Keys.S)) {
