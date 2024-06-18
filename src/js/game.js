@@ -3,6 +3,7 @@ import { Actor, Engine, Vector, DisplayMode, Color, SolverStrategy } from "excal
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
 import { Hostage } from './hostage.js'
+import { Enemy } from './enemy.js'
 
 // import { Level } from './room1.js'
 // import { Level2 } from './room2.js'
@@ -38,10 +39,12 @@ export class Game extends Engine {
         // this.goToScene('room1')
 
         //Player heeft nodig: health, attack, defence en rangedAttack unlock.
-        const player = new Player(100, 20, 20, false);
+        const player = new Player(10, 2, 20, false);
         this.add(player)
         const hostage = new Hostage(new Vector(400, 500))
         this.add(hostage)
+        const meleeEnemy= new Enemy(600,700,1)
+        this.add(meleeEnemy)
     }
 
 }
