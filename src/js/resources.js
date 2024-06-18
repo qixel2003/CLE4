@@ -2,7 +2,6 @@ import { ImageSource, Sound, Resource, Loader } from 'excalibur'
 
 // voeg hier jouw eigen resources toe
 const Resources = {
-    Fish: new ImageSource('images/fish.png'),
     //Main Character Sprites
     MCF: new ImageSource('images/mc_front.png'),
     MCB: new ImageSource('images/mc_back.png'),
@@ -13,9 +12,6 @@ const Resources = {
     Player: new ImageSource('images/mc_front.png'),
     Player1: new ImageSource('images/mc_sheet.png')
 }
-
-
-
 
 const ResourceLoader = new Loader()
 for (let res of Object.values(Resources)) {
