@@ -1,5 +1,7 @@
 import { Actor, CollisionType, Color, Vector } from "excalibur";
 import { Player } from './player.js'
+import { Resources, ResourceLoader } from './resources.js'
+
 
 export class Powerup extends Actor {
     constructor(x, y, type, duration) {
@@ -11,21 +13,35 @@ export class Powerup extends Actor {
         });
         this.duration = duration || 5000; // duration in milliseconds (default: 5000ms)
         this.type = type;
-        this.color = this.getColorForType(type);
+        // Set the appropriate sprite based on the type
+        this.setSpriteForType(type);
         this.collisionType = CollisionType.Passive;
         this.on('collisionstart', this.onCollision.bind(this)); // Bind onCollision method to current instance
     }
-
-    getColorForType(type) {
+    
+    setSpriteForType(type) {
+        let sprite;
         switch (type) {
             case 'attack':
-                return Color.Red;
+                sprite = Resources.AttackBoost.toSprite();
+                break;
             case 'shield':
-                return Color.Blue;
+                sprite = Resources.DefenceBoost.toSprite();
+                break;
             case 'speed':
-                return Color.Green;
+                sprite = Resources.SpeedBoost.toSprite();
+                break;
             default:
-                return Color.White;
+                // Use a default sprite or color if the type is not recognized
+                sprite = null; // You can also set a default sprite if you have one
+        }
+        if (sprite) {
+            // Scale the sprite down
+            const scaleFactor = 0.2; // Adjust this factor as needed
+            sprite.scale = new Vector(scaleFactor, scaleFactor);
+            this.graphics.use(sprite); // Apply the sprite to the Actor's graphics
+        } else {
+            this.color = Color.Gray; // Fallback color if no sprite is set
         }
     }
 
@@ -64,7 +80,7 @@ export class Powerup extends Actor {
     }
 
     onPreUpdate(engine, delta) {
-        this.color = this.getColorForType(this.type); // Update color
+        this.sprite = this.setSpriteForType(this.type); // Update color
         super.onPreUpdate(engine, delta);
     }
 
