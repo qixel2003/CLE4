@@ -1,4 +1,5 @@
 import { Actor, CollisionType, Color, Vector } from "excalibur";
+import { Player } from './player.js'
 
 export class Powerup extends Actor {
     constructor(x, y, type, duration) {
@@ -69,7 +70,7 @@ export class Powerup extends Actor {
 
     onCollision(evt) {
         let other = evt.other;
-        if (other instanceof Actor) {
+        if (other instanceof Player) {
             console.log(other)
             this.applyEffect(other);
             this.kill(); // Kill the power-up after applying effect
