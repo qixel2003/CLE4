@@ -4,6 +4,7 @@ import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
 import { Hostage } from './hostage.js'
 import { Enemy } from './enemy.js'
+import { Enemy2 } from './enemy2.js'
 import { Powerup } from './powerup.js'
 
 // import { Level } from './room1.js'
@@ -47,6 +48,8 @@ export class Game extends Engine {
         this.add(hostage)
         const meleeEnemy= new Enemy(600,700,1)
         this.add(meleeEnemy)
+        const rangedEnemy = new Enemy2(400, 700, 1)
+        this.add(rangedEnemy)
         var attackBoost = new Powerup(200, 100, 'attack', 5000); // Attack boost, 5 seconds duration
         var shield = new Powerup(300, 100, 'shield', 5000); // Shield, 5 seconds duration
         var speedBoost = new Powerup(400, 100, 'speed', 5000); // Speed boost, 5 seconds duration

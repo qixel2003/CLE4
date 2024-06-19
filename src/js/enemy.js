@@ -28,7 +28,7 @@ export class Enemy extends Actor {
         const player = engine.currentScene.actors.find(actor => actor instanceof Player);
         if (player) {
             let distance = this.pos.distance(player.pos); // Calculate distance to player
-            if (distance < 200) {
+            if (distance < 300) {
                 let direction = player.pos.sub(this.pos).normalize();
                 this.vel = direction.scale(200);
             } else {

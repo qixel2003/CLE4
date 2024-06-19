@@ -1,6 +1,7 @@
 import { Actor, Color, Vector, Input, CollisionType, SpriteSheet, Animation } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
 import { Enemy } from './enemy.js';
+import { Enemy2 } from './enemy2.js'; // Import Enemy2
 
 // Utility function to generate a range of numbers
 function range(start, end) {
@@ -25,7 +26,6 @@ export class Player extends Actor {
             height: 50,
             color: Color.Red,
             collisionType: CollisionType.Active, // Set collision to Active
-            color: Color.Red, // Tijdelijke kleur   
         });
 
         this.health = health;
@@ -59,11 +59,6 @@ export class Player extends Actor {
         this.graphics.add("runright", runRight);
         this.graphics.add("runfront", runFront);
         this.graphics.add("runback", runBack);
-        this.graphics.add("idle", idle);
-        this.graphics.add("runleft", runLeft);
-        this.graphics.add("runright", runRight);
-        this.graphics.add("runfront", runFront);
-        this.graphics.add("runback", runBack);
 
         this.graphics.use(idle);
         this.on('collisionstart', (event) => this.onCollisionStart(event));
@@ -80,21 +75,17 @@ export class Player extends Actor {
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
             vel = vel.add(new Vector(0, -1));
             this.graphics.use('runfront');
-            this.graphics.use('runfront');
         }
         if (engine.input.keyboard.isHeld(Input.Keys.S)) {
             vel = vel.add(new Vector(0, 1));
-            this.graphics.use('runback');
             this.graphics.use('runback');
         }
         if (engine.input.keyboard.isHeld(Input.Keys.A)) {
             vel = vel.add(new Vector(-1, 0));
             this.graphics.use('runleft');
-            this.graphics.use('runleft');
         }
         if (engine.input.keyboard.isHeld(Input.Keys.D)) {
             vel = vel.add(new Vector(1, 0));
-            this.graphics.use('runright');
             this.graphics.use('runright');
         }
 
@@ -115,6 +106,7 @@ export class Player extends Actor {
             this.lastHitTime = Date.now();
             console.log(`Player health: ${this.health}`);
         }
+
 
         if (this.health <= 0) {
             this.gameOver();
@@ -156,7 +148,7 @@ export class Player extends Actor {
 
         // Add collision handler for attack
         attack.on('collisionstart', (event) => {
-            if (event.other instanceof Enemy) {
+            if (event.other instanceof Enemy || event.other instanceof Enemy2) {
                 event.other.takeDamage(this.attack); // Decrease enemy health
                 attack.kill(); // Remove the attack actor
             }
@@ -172,7 +164,7 @@ export class Player extends Actor {
     }
 
     onCollisionStart(event) {
-        if (event.other instanceof Enemy) {
+        if (event.other instanceof Enemy || event.other instanceof Enemy2) {
             this.isCollidingWithEnemy = true;
             this.collidingEnemy = event.other;
             this.lastHitTime = Date.now(); // Initialize last hit time
@@ -181,7 +173,7 @@ export class Player extends Actor {
     }
 
     onCollisionEnd(event) {
-        if (event.other instanceof Enemy) {
+        if (event.other instanceof Enemy || event.other instanceof Enemy2) {
             this.isCollidingWithEnemy = false;
             this.collidingEnemy = null;
             console.log("Collision with enemy ended");
