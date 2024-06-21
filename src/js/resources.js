@@ -4,7 +4,16 @@ import { ImageSource, Sound, Resource, Loader } from 'excalibur'
 const Resources = {
     Player: new ImageSource('images/mc_front.png'),
     Player1: new ImageSource('images/mc_sheet.png'),
-    MeleeAttack: new ImageSource('images/melee_attack.png') // Add your melee attack sprite
+    EnemyMelee: new ImageSource('images/Melee_Enemy_Sprite.png'),
+    EnemyRanged: new ImageSource('images/Ranged_Enemy_Sprite.png'),
+    MeleeAttack: new ImageSource('images/melee_attack.png'), // Add your melee attack sprite
+
+    //Powerups
+    AttackBoost: new ImageSource('images/powerAttack.png'),
+    DefenceBoost: new ImageSource('images/powerDefense.png'),
+    SpeedBoost: new ImageSource('images/powerSpeed.png'),
+    //Main Menu Image
+    MainMenu: new ImageSource('images/mainmenu.png'),
 };
 
 
