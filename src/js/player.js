@@ -2,6 +2,7 @@ import { Actor, Color, Vector, Input, CollisionType, SpriteSheet, Animation } fr
 import { Resources, ResourceLoader } from './resources.js';
 import { Enemy } from './enemy.js';
 import { Enemy2 } from './enemy2.js'; // Import Enemy2
+import { Boss } from "./boss.js";
 
 // Utility function to generate a range of numbers
 function range(start, end) {
@@ -141,7 +142,7 @@ export class Player extends Actor {
 
         // Handle melee attack Face1 = A or X Face2 = B or Circle Face3 = X or Square Face4 = Y or Triangle
         // Controller = || gamepad.isButtonPressed(Input.Buttons.Face1)
-        if (engine.input.keyboard.wasPressed(Input.Keys.Space) ) {
+        if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
             this.meleeAttack();
         }
 
@@ -193,7 +194,7 @@ export class Player extends Actor {
 
         // Add collision handler for attack
         attack.on('collisionstart', (event) => {
-            if (event.other instanceof Enemy || event.other instanceof Enemy2) {
+            if (event.other instanceof Enemy || event.other instanceof Enemy2 || event.other instanceof Boss) {
                 event.other.takeDamage(this.attack); // Decrease enemy health
                 attack.kill(); // Remove the attack actor
             }
@@ -209,7 +210,8 @@ export class Player extends Actor {
     }
 
     onCollisionStart(event) {
-        if (event.other instanceof Enemy || event.other instanceof Enemy2) {
+        if (event.other instanceof Enemy || event.other instanceof Enemy2 || event.other instanceof Boss) {
+            console.log(event.other)
             this.isCollidingWithEnemy = true;
             this.collidingEnemy = event.other;
             this.lastHitTime = Date.now(); // Initialize last hit time
@@ -218,7 +220,7 @@ export class Player extends Actor {
     }
 
     onCollisionEnd(event) {
-        if (event.other instanceof Enemy || event.other instanceof Enemy2) {
+        if (event.other instanceof Enemy || event.other instanceof Enemy2 || event.other instanceof Boss) {
             this.isCollidingWithEnemy = false;
             this.collidingEnemy = null;
             console.log("Collision with enemy ended");
