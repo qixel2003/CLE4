@@ -7,6 +7,7 @@ import { Enemy } from './enemy.js'
 import { Enemy2 } from './enemy2.js'
 import { Powerup } from './powerup.js'
 import { MainMenu } from './scenemainmenu.js'
+import { HostageQuinten } from './scenehostagequinten.js'
 
 // import { Level } from './room1.js'
 // import { Level2 } from './room2.js'
@@ -40,6 +41,9 @@ export class Game extends Engine {
         // this.add('levelclear', new LevelClear())
         // this.goToScene('intro')
         // this.goToScene('room1')
+
+        this.add('hostageQ', new HostageQuinten())
+        this.goToScene('hostageQ')
 
         
         //Player heeft nodig: health, attack, defence en rangedAttack unlock.

@@ -14,6 +14,15 @@ const Resources = {
     SpeedBoost: new ImageSource('images/powerSpeed.png'),
     //Main Menu Image
     MainMenu: new ImageSource('images/mainmenu.png'),
+    HostageMapQuinten: new ImageSource('images/mapspritequinten.jpg'),
+
+    Fontein: new ImageSource('images/fontein.png'),
+    Tree: new ImageSource('images/tree.png'),
+    Lantern: new ImageSource('images/lantern.png'),
+    Cage: new ImageSource('images/cage.png'),
+
+    //Hostages
+    HostageQuinten: new ImageSource('images/hostage4.png'),
 };
 
 

@@ -1,9 +1,8 @@
 import { Actor, Color, Vector, Label, CollisionType, Engine, FontUnit, FontStyle, TextAlign } from "excalibur";
 
 export class Hostage extends Actor {
-    constructor(position) {
+    constructor() {
         super({
-            pos: position, // Position of the hostage
             width: 50,
             height: 50,
             color: Color.Blue, // Hostage color
