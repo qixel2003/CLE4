@@ -70,6 +70,7 @@ export class Player extends Actor {
         let speed = 200;
         let vel = Vector.Zero;
         this.graphics.use('idle');
+        engine.input.gamepads.enabled = true;
 
         // Lees welke key er wordt gedrukt
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
@@ -95,8 +96,42 @@ export class Player extends Actor {
         }
         this.vel = vel;
 
-        // Handle melee attack
-        if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+        //Controller Movement
+        const gamepad = engine.input.gamepads.at(0); // Get the first connected gamepad
+        if (gamepad) {
+            let moveDirection = Vector.Zero.clone();
+
+            // Read D-pad as axes (commonly mapped to left stick or D-pad axes)
+            if (gamepad.getAxes(Input.Axes.LeftStickX) !== 0) {
+                moveDirection.x = gamepad.getAxes(Input.Axes.LeftStickX);
+            }
+            if (gamepad.getAxes(Input.Axes.LeftStickY) !== 0) {
+                moveDirection.y = gamepad.getAxes(Input.Axes.LeftStickY);
+            }
+
+            // If the D-pad is mapped to buttons, use button states
+            if (gamepad.isButtonPressed(Input.Buttons.DpadLeft)) {
+                moveDirection.x = -1;
+            }
+            if (gamepad.isButtonPressed(Input.Buttons.DpadRight)) {
+                moveDirection.x = 1;
+            }
+            if (gamepad.isButtonPressed(Input.Buttons.DpadUp)) {
+                moveDirection.y = -1;
+            }
+            if (gamepad.isButtonPressed(Input.Buttons.DpadDown)) {
+                moveDirection.y = 1;
+            }
+
+            // Normalize movement to avoid faster diagonal movement
+            moveDirection = moveDirection.normalize();
+
+            // Move the player
+            this.vel = moveDirection.scale(150); // Adjust speed as needed
+        }
+
+        // Handle melee attack Face1 = A or X Face2 = B or Circle Face3 = X or Square Face4 = Y or Triangle
+        if (engine.input.keyboard.wasPressed(Input.Keys.Space) || gamepad.isButtonPressed(Input.Buttons.Face1)) {
             this.meleeAttack();
         }
 
