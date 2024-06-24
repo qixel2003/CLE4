@@ -7,6 +7,7 @@ const Resources = {
     EnemyMelee: new ImageSource('images/Melee_Enemy_Sprite.png'),
     EnemyRanged: new ImageSource('images/Ranged_Enemy_Sprite.png'),
     MeleeAttack: new ImageSource('images/melee_attack.png'), // Add your melee attack sprite
+    Boss: new ImageSource('/images/Crab_final_boss.png'),
 
     //Powerups
     AttackBoost: new ImageSource('images/powerAttack.png'),
