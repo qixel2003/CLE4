@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode, Color, SolverStrategy, BoundingBox, Scene } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, Color, SolverStrategy, BoundingBox, Scene, CollisionType, Label } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
 import { Hostage } from './hostage.js'
@@ -7,6 +7,9 @@ import { Cage } from './cage.js'
 import { Enemy } from './enemy.js'
 import { Enemy2 } from './enemy2.js'
 import { RoomQbg } from './roomQbg.js'
+import { EventBlock } from './eventBlock.js'
+import { Fire } from './fire.js'
+
 
 
 export class RoomQ1 extends Scene {
@@ -30,9 +33,20 @@ export class RoomQ1 extends Scene {
         this.createPlayer(10, 2, 20, false);
         this.createHostage(1000, 400);
         this.createCage(1000,400);
+        this.createEventBlock(700, 300, 'save', "We don't save gingers dumass");
+        this.createEventBlock(700, 500, 'kill', 'NO Mercy!!!!');
+        // this.createFire(600,400);
         // this.createEnemy(600, 700, 1);
         // this.createEnemy2(400, 700, 1);
 
+        this.messageLabel = new Label({
+            text: '',
+            pos: new Vector(700, 400),
+            fontSize: 30,
+            color: Color.White,
+            z: 100 // Ensure the label is on top
+        });
+        this.add(this.messageLabel);
     }
 
     onPreUpdate(engine) {
@@ -58,13 +72,34 @@ export class RoomQ1 extends Scene {
     }
 
     createHostage(x, y) {
-        const hostage = new Hostage(new Vector(x, y))
+        const hostage = new Hostage({
+            width: 50,
+            height: 50,
+            anchor: new Vector(0.5, 0.8),
+            collisionType: CollisionType.Fixed, // Define the collision type
+            z: 3
+        })
+        hostage.pos = new Vector(x, y)
+        const hostageImage = Resources.Ginger.toSprite();
+        hostageImage.scale = new Vector(0.3, 0.3)
+        hostage.graphics.use(hostageImage);
         this.add(hostage)
+    }
+
+    createEventBlock(x, y, name, line) {
+        // const line = 'save me';
+        const eventBlock = new EventBlock(x, y, name, line);
+        this.add(eventBlock)
     }
 
     createCage(x, y) {
         const cage = new Cage(x, y)
         this.add(cage)
+    }
+
+    createFire(){
+        const fire = new Fire(1000,400);
+        this.add(fire)
     }
     
 
@@ -72,6 +107,16 @@ export class RoomQ1 extends Scene {
     //     this.score++;
     //     this.label.text = `Score: ${this.score}`;
     // }
+
+    displayMessage(message) {
+        this.messageLabel.text = message;
+        this.messageLabel.visible = true;
+
+        // Hide the message after 2 seconds
+        this.engine.clock.schedule(() => {
+            this.messageLabel.visible = false;
+        }, 2000);
+    }
 
     resetGame() {
         // Clear all existing actors
