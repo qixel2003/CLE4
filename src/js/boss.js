@@ -1,5 +1,6 @@
 import { Actor, Engine, Vector, Timer, CollisionType, Color } from 'excalibur';
 import { Player } from './player.js';
+import { Resources } from './resources.js';
 
 export class Boss extends Actor {
     constructor() {
