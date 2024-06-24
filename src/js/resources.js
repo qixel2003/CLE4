@@ -6,6 +6,8 @@ const Resources = {
     Player1: new ImageSource('images/mc_sheet.png'),
     EnemyMelee: new ImageSource('images/Melee_Enemy_Sprite.png'),
     EnemyRanged: new ImageSource('images/Ranged_Enemy_Sprite.png'),
+    Boss: new ImageSource('images/Crab_final_boss.png'),
+
     MeleeAttack: new ImageSource('images/melee_attack.png'), // Add your melee attack sprite
     Fire: new ImageSource('images/fire.png'),
     Cage: new ImageSource('images/cage.png'),

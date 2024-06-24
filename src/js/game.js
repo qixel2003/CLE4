@@ -61,20 +61,20 @@ export class Game extends Engine {
         // this.goToScene('boss')
         // this.add('hostage2', new Hostage2())
         // this.goToScene('hostage2')
-        this.add('hostage3', new Hostage3())
-        this.goToScene('hostage3')
+        // this.add('hostage3', new Hostage3())
+        // this.goToScene('hostage3')
 
         
         //Player heeft nodig: health, attack, defence en rangedAttack unlock.
-        const player = new Player(10, 2, 20, false);
-        this.add(player)
-        // Camera setup
-        if (this.currentScene.camera) {
-            // Lock camera to player
-            this.currentScene.camera.strategy.lockToActor(player);
+        // const player = new Player(10, 2, 20, false);
+        // this.add(player)
+        // // Camera setup
+        // if (this.currentScene.camera) {
+        //     // Lock camera to player
+        //     this.currentScene.camera.strategy.lockToActor(player);
 
             // Limit camera bounds
-            this.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2000, 1200));
+            // this.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2000, 1200));
 
         //     console.log('Camera strategy applied successfully.');
         // } else {
@@ -86,12 +86,6 @@ export class Game extends Engine {
         // const hostage = new Hostage(new Vector(400, 500))
         // this.add(hostage)
 
-            console.log('Camera strategy applied successfully.');
-        } else {
-            console.error('Error: Camera not found in current scene.');
-        }
-        const hostage = new Hostage(new Vector(400, 500))
-        this.add(hostage)
         // const meleeEnemy= new Enemy(600,700,1)
         // this.add(meleeEnemy)
 

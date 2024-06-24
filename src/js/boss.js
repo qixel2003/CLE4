@@ -1,5 +1,15 @@
-import { Actor, Engine, Vector, Timer, CollisionType, Color, Scene } from 'excalibur';
+import { Actor, Engine, Vector, Timer, CollisionType, Color, SpriteSheet, Animation } from 'excalibur';
+import { Resources, ResourceLoader } from './resources.js';
 import { Player } from './player.js';
+
+// Utility function to generate a range of numbers
+function range(start, end) {
+    let arr = [];
+    for (let i = start; i <= end; i++) {
+        arr.push(i);
+    }
+    return arr;
+}
 
 export class Boss extends Actor {
     constructor() {
@@ -16,9 +26,29 @@ export class Boss extends Actor {
         this.attack = 2; // Damage dealt to the player per attack
         this.health = 20; // Boss health
         this.phase = '1';
+
+        const attackSheet = SpriteSheet.fromImageSource({
+            image: Resources.Boss,
+            grid: { rows: 1, columns: 12, spriteWidth: 250, spriteHeight: 250 }
+        });
+
+        this.idle = attackSheet.sprites[0]; // no animation
+        this.shoot = Animation.fromSpriteSheet(attackSheet, range(4, 5), 80);
+        this.slamR = Animation.fromSpriteSheet(attackSheet, range(9, 11), 80);
+        this.slamL = Animation.fromSpriteSheet(attackSheet, range(6, 8), 80);
+
+        this.graphics.add("idle", this.idle);
+        this.graphics.add("shoot", this.shoot);
+        this.graphics.add("slamR", this.slamR);
+        this.graphics.add("slamL", this.slamL);
+
+        this.graphics.use("idle");
     }
 
     onInitialize(engine) {
+        this.graphics.use("idle");
+        console.log("Initializing Boss with idle animation");
+
         const attackTimer = new Timer({
             fcn: () => this.performAttack(engine),
             interval: this.attackInterval,
@@ -29,13 +59,16 @@ export class Boss extends Actor {
         attackTimer.start();
     }
 
-    onPreUpdate(engine){
-        if(this.health<=10){
-            this.phase='2';
+    onPreUpdate(engine) {
+        this.graphics.use("idle");
+
+        if (this.health <= 10) {
+            this.phase = '2';
         }
     }
 
     performAttack(engine) {
+        console.log("Performing attack, current phase:", this.phase);
         // Clear any previous attack visuals or effects
         engine.currentScene.actors.forEach(actor => {
             if (actor.tag === 'attackEffect') {
@@ -43,25 +76,31 @@ export class Boss extends Actor {
             }
         });
 
-        if (this.phase == '1') {
+        if (this.phase === '1') {
             if (this.attackLeft) {
                 this.attackLeftHalf(engine);
+                this.graphics.use("slamL");
+                console.log("Using slamL animation for left half attack");
             } else {
                 this.attackRightHalf(engine);
+                this.graphics.use("slamR");
+                console.log("Using slamR animation for right half attack");
             }
 
             this.attackLeft = !this.attackLeft;
         } else {
             this.performRangedAttack(engine);
+            this.graphics.use("shoot");
+            console.log("Using shoot animation for ranged attack");
         }
     }
 
     performRangedAttack(engine) {
-        // Shoot 10 projectiles with a delay of 1 second between each shot
+        // Shoot 10 projectiles with a delay of 0.1 second between each shot
         for (let i = 0; i < 10; i++) {
             engine.clock.schedule(() => {
                 this.rangedAttack(engine);
-            }, i * 100); // Delay each shot by i seconds
+            }, i * 100); // Delay each shot by 0.1 seconds
         }
     }
 
