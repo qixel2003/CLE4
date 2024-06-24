@@ -2,6 +2,8 @@ import { Scene, Actor, Engine, Vector, Color, CollisionType, ImageSource } from 
 import { Resources, ResourceLoader } from './resources.js'; // Assuming Resources is where your images are
 import { Player } from './player.js';
 import { Hostage } from './hostage.js';
+import { Enemy } from './enemy.js'
+import { Enemy2 } from './enemy2.js'
 
 export class HostageQuinten extends Scene {
     constructor() {
@@ -111,5 +113,10 @@ export class HostageQuinten extends Scene {
         cageImage.scale = new Vector(1.3, 1.3)
         cage.graphics.use(cageImage);
         this.add(cage)
+
+        const meleeEnemy= new Enemy(600,700,1)
+        this.add(meleeEnemy)
+        const rangedEnemy = new Enemy2(400, 700, 1)
+        this.add(rangedEnemy)
     }
 }

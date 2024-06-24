@@ -4,7 +4,7 @@ import { Player } from './player.js';
 export class Boss extends Actor {
     constructor() {
         super({
-            pos: new Vector(400, 300), // Positioning the boss in the center
+            pos: new Vector(600, 200), // Positioning the boss in the center
             width: 100,
             height: 100,
             color: Color.Red // Boss color
@@ -48,7 +48,7 @@ export class Boss extends Actor {
         console.log('Boss attacks the left half of the screen!');
 
         const attackEffect = new Actor({
-            pos: new Vector(200, 300), // Center of the left half of the screen
+            pos: new Vector(350, 400), // Center of the left half of the screen
             width: 400, // Cover the left half horizontally
             height: 600, // Cover the entire screen vertically
             color: Color.Blue,
@@ -71,7 +71,7 @@ export class Boss extends Actor {
         console.log('Boss attacks the right half of the screen!');
 
         const attackEffect = new Actor({
-            pos: new Vector(600, 300), // Center of the right half of the screen
+            pos: new Vector(850, 400), // Center of the right half of the screen
             width: 400, // Cover the right half horizontally
             height: 600, // Cover the entire screen vertically
             color: Color.Green,

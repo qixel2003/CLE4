@@ -7,15 +7,14 @@ import { Enemy } from './enemy.js'
 import { Enemy2 } from './enemy2.js'
 import { Powerup } from './powerup.js'
 import { MainMenu } from './scenemainmenu.js'
-<<<<<<< Updated upstream
 import { HostageQuinten } from './scenehostagequinten.js'
 import { Boss } from './boss.js'
-=======
 import { RoomQ1 } from './roomQ1.js'
 import { Room1 } from './room1.js'
 
 
->>>>>>> Stashed changes
+
+import { BossRoom } from './sceneBossRoom.js'
 
 // import { Level } from './room1.js'
 // import { Level2 } from './room2.js'
@@ -56,38 +55,31 @@ export class Game extends Engine {
         // this.add('hostageQ', new HostageQuinten())
         // this.goToScene('hostageQ')
 
+        this.add('boss', new BossRoom())
+        this.goToScene('boss')
+
         
-        // //Player heeft nodig: health, attack, defence en rangedAttack unlock.
-        // const player = new Player(10, 2, 20, false);
-        // this.add(player)
-        // // Camera setup
-        // if (this.currentScene.camera) {
-        //     // Lock camera to player
-        //     this.currentScene.camera.strategy.lockToActor(player);
+        //Player heeft nodig: health, attack, defence en rangedAttack unlock.
+        const player = new Player(10, 2, 20, false);
+        this.add(player)
+        // Camera setup
+        if (this.currentScene.camera) {
+            // Lock camera to player
+            this.currentScene.camera.strategy.lockToActor(player);
 
-        //     // Limit camera bounds
-        //     this.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2000, 1200));
+            // Limit camera bounds
+            this.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2000, 1200));
 
-<<<<<<< Updated upstream
             console.log('Camera strategy applied successfully.');
         } else {
             console.error('Error: Camera not found in current scene.');
         }
         const hostage = new Hostage(new Vector(400, 500))
         this.add(hostage)
-=======
-        //     console.log('Camera strategy applied successfully.');
-        // } else {
-        //     console.error('Error: Camera not found in current scene.');
-        // }
-        // const hostage = new Hostage(new Vector(400, 500))
-        // this.add(hostage)
->>>>>>> Stashed changes
         // const meleeEnemy= new Enemy(600,700,1)
         // this.add(meleeEnemy)
         // const rangedEnemy = new Enemy2(400, 700, 1)
         // this.add(rangedEnemy)
-<<<<<<< Updated upstream
         var attackBoost = new Powerup(200, 100, 'attack', 5000); // Attack boost, 5 seconds duration
         var shield = new Powerup(300, 100, 'shield', 5000); // Shield, 5 seconds duration
         var speedBoost = new Powerup(400, 100, 'speed', 5000); // Speed boost, 5 seconds duration
@@ -98,19 +90,9 @@ export class Game extends Engine {
         const boss = new Boss
         this.add(boss)
 
-=======
-        // var attackBoost = new Powerup(200, 100, 'attack', 5000); // Attack boost, 5 seconds duration
-        // var shield = new Powerup(300, 100, 'shield', 5000); // Shield, 5 seconds duration
-        // var speedBoost = new Powerup(400, 100, 'speed', 5000); // Speed boost, 5 seconds duration
-        // this.add(attackBoost);
-        // this.add(shield);
-        // this.add(speedBoost);
-
->>>>>>> Stashed changes
         // const mainmenu = new MainMenu;
         // this.add(mainmenu)
     }
-
 }
 
 new Game()

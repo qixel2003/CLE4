@@ -20,6 +20,7 @@ const Resources = {
     //Main Menu Image
     MainMenu: new ImageSource('images/mainmenu.png'),
     HostageMapQuinten: new ImageSource('images/mapspritequinten.jpg'),
+    BossRoom: new ImageSource('images/map_boss.png'),
 
     Fontein: new ImageSource('images/fontein.png'),
     Tree: new ImageSource('images/tree.png'),
