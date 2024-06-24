@@ -4,8 +4,9 @@ import { Player } from './player.js';
 import { Hostage } from './hostage.js';
 import { Enemy } from './enemy.js'
 import { Enemy2 } from './enemy2.js'
+import { UI } from './ui.js';
 
-export class HostageQuinten extends Scene {
+export class Hostage3 extends Scene {
     constructor() {
         super();
     }
@@ -41,17 +42,8 @@ export class HostageQuinten extends Scene {
         this.add(player)
         player.vel = Vector.Zero
 
-        const fontein = new Actor({
-            width: 250,
-            height: 250,
-            anchor: new Vector(0.5, 0.5),
-            pos: new Vector(150, 400),
-            collisionType: CollisionType.Fixed, // Define the collision type
-            z: 1
-        })
-        const fonteinImage = Resources.Fontein.toSprite();
-        fontein.graphics.use(fonteinImage);
-        this.add(fontein);
+        const playerUI = new UI(player)
+        this.add(playerUI)
 
         const tree = new Actor({
             width: 50,
@@ -64,6 +56,39 @@ export class HostageQuinten extends Scene {
         const treeImage = Resources.Tree.toSprite();
         tree.graphics.use(treeImage);
         this.add(tree);
+
+        const tree2 = new Actor({
+            width: 50,
+            height: 50,
+            anchor: new Vector(0.5, 0.8),
+            pos: new Vector(500, 200),
+            collisionType: CollisionType.Fixed, // Define the collision type
+            z: 3
+        })
+        tree2.graphics.use(treeImage);
+        this.add(tree2);
+
+        const tree3 = new Actor({
+            width: 50,
+            height: 50,
+            anchor: new Vector(0.5, 0.8),
+            pos: new Vector(325, 700),
+            collisionType: CollisionType.Fixed, // Define the collision type
+            z: 3
+        })
+        tree3.graphics.use(treeImage);
+        this.add(tree3);
+
+        const tree4 = new Actor({
+            width: 50,
+            height: 50,
+            anchor: new Vector(0.5, 0.8),
+            pos: new Vector(700, 700),
+            collisionType: CollisionType.Fixed, // Define the collision type
+            z: 3
+        })
+        tree4.graphics.use(treeImage);
+        this.add(tree4);
 
         const lantern1 = new Actor({
             width: 50,
@@ -96,7 +121,7 @@ export class HostageQuinten extends Scene {
             z: 3
         })
         hostage.pos = new Vector(400, 400)
-        const hostageImage = Resources.HostageQuinten.toSprite();
+        const hostageImage = Resources.Hostage3.toSprite();
         hostageImage.scale = new Vector(0.3, 0.3)
         hostage.graphics.use(hostageImage);
         this.add(hostage)
@@ -114,7 +139,7 @@ export class HostageQuinten extends Scene {
         cage.graphics.use(cageImage);
         this.add(cage)
 
-        const meleeEnemy= new Enemy(600,700,1)
+        const meleeEnemy = new Enemy(600, 700, 1)
         this.add(meleeEnemy)
         const rangedEnemy = new Enemy2(400, 700, 1)
         this.add(rangedEnemy)

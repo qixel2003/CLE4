@@ -74,6 +74,8 @@ export class Player extends Actor {
         this.graphics.use('idle');
         engine.input.gamepads.enabled = true;
 
+
+
         // Lees welke key er wordt gedrukt
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
             vel = vel.add(new Vector(0, -1));
@@ -99,40 +101,54 @@ export class Player extends Actor {
         this.vel = vel;
 
         // //Controller Movement
+        if (!this.vel.equals(Vector.Zero)) {
+            this.lastMovementDirection = this.vel.normalize();
+        }
+
         // const gamepad = engine.input.gamepads.at(0); // Get the first connected gamepad
         // if (gamepad) {
         //     let moveDirection = Vector.Zero.clone();
 
-        //     // Read D-pad as axes (commonly mapped to left stick or D-pad axes)
-        //     if (gamepad.getAxes(Input.Axes.LeftStickX) !== 0) {
-        //         moveDirection.x = gamepad.getAxes(Input.Axes.LeftStickX);
+        //     // Define a deadzone to prevent unintended movement from slight stick drift
+        //     const deadzone = 0.1;
+        //     const leftStickX = gamepad.getAxes(Input.Axes.LeftStickX);
+        //     const leftStickY = gamepad.getAxes(Input.Axes.LeftStickY);
+
+        //     // Read stick input with deadzone
+        //     if (Math.abs(leftStickX) > deadzone) {
+        //         moveDirection.x = leftStickX;
         //     }
-        //     if (gamepad.getAxes(Input.Axes.LeftStickY) !== 0) {
-        //         moveDirection.y = gamepad.getAxes(Input.Axes.LeftStickY);
+        //     if (Math.abs(leftStickY) > deadzone) {
+        //         moveDirection.y = leftStickY;
         //     }
 
-        //     // If the D-pad is mapped to buttons, use button states
-        //     if (gamepad.isButtonPressed(Input.Buttons.DpadLeft)) {
-        //         moveDirection.x = -1;
-        //     }
-        //     if (gamepad.isButtonPressed(Input.Buttons.DpadRight)) {
-        //         moveDirection.x = 1;
-        //     }
-        //     if (gamepad.isButtonPressed(Input.Buttons.DpadUp)) {
-        //         moveDirection.y = -1;
-        //     }
-        //     if (gamepad.isButtonPressed(Input.Buttons.DpadDown)) {
-        //         moveDirection.y = 1;
+        //     // Only check D-pad buttons if stick input is zero
+        //     if (moveDirection == null) {
+        //         if (gamepad.isButtonPressed(Input.Buttons.DpadLeft)) {
+        //             moveDirection.x = -1;
+        //         }
+        //         if (gamepad.isButtonPressed(Input.Buttons.DpadRight)) {
+        //             moveDirection.x = 1;
+        //         }
+        //         if (gamepad.isButtonPressed(Input.Buttons.DpadUp)) {
+        //             moveDirection.y = -1;
+        //         }
+        //         if (gamepad.isButtonPressed(Input.Buttons.DpadDown)) {
+        //             moveDirection.y = 1;
+        //         }
         //     }
 
-        //     // Normalize movement to avoid faster diagonal movement
-        //     moveDirection = moveDirection.normalize();
+        //     // Normalize and scale the direction vector if it's not zero
+        //     if (!moveDirection == null) {
+        //         moveDirection = moveDirection.normalize().scale(150); // Adjust speed as needed
+        //     }
 
-        //     // Move the player
-        //     this.vel = moveDirection.scale(150); // Adjust speed as needed
+        //     // Set the player's velocity
+        //     this.vel = moveDirection;
         // }
 
         // Handle melee attack Face1 = A or X Face2 = B or Circle Face3 = X or Square Face4 = Y or Triangle
+        // Controller = || gamepad.isButtonPressed(Input.Buttons.Face1)
         if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
             this.meleeAttack();
         }
@@ -151,54 +167,64 @@ export class Player extends Actor {
     }
 
     meleeAttack() {
-        // Ensure attacks cannot be spammed
-        if (Date.now() - this.lastAttackTime < this.attackCooldown) {
-            return;
-        }
-
-        this.lastAttackTime = Date.now(); // Reset the timer for attack cooldown
-
-        // Determine the attack direction using the player's velocity vector
-        let attackDirection = this.vel.normalize();
-        if (attackDirection.equals(Vector.Zero)) {
-            attackDirection = new Vector(1, 0); // Default to right if there's no movement
-        }
-
-        // Position the attack in front of the player
-        const attackOffset = attackDirection.scale(this.width / 2 + 20);
-        let attack = new Actor({
-            pos: this.pos.add(attackOffset), // Place the attack in front of the player
-            width: 30,    // Define the collision hitbox width
-            height: 30,   // Define the collision hitbox height
-            color: Color.Transparent // Set to transparent if using a sprite
-        });
-
-        attack.body.collisionType = CollisionType.Passive; // Passive to detect collisions but not to interfere
-
-        // Add and configure the melee attack sprite
-        const meleeSprite = Resources.MeleeAttack.toSprite();
-        meleeSprite.scale = new Vector(0.5, 0.5); // Scale the sprite down
-        meleeSprite.anchor = new Vector(1, 1); // Set the sprite's anchor to its center
-        meleeSprite.rotation = Math.atan2(attackDirection.y, attackDirection.x); // Rotate to match the attack direction
-
-        attack.graphics.use(meleeSprite);
-
-        // Add collision handler for attack
-        attack.on('collisionstart', (event) => {
-            if (event.other instanceof Enemy || event.other instanceof Enemy2 || event.other instanceof Boss) {
-                event.other.takeDamage(this.attack); // Decrease enemy health
-                attack.kill(); // Remove the attack actor
-            }
-        });
-
-        // Add the attack to the scene
-        this.scene.add(attack);
-        setTimeout(() => {
-            if (attack.scene) {
-                attack.kill();
-            }
-        }, 200);
+    // Ensure attacks cannot be spammed
+    if (Date.now() - this.lastAttackTime < this.attackCooldown) {
+        return;
     }
+
+    this.lastAttackTime = Date.now(); // Reset the timer for attack cooldown
+
+    // Determine the attack direction using the player's velocity vector
+    let attackDirection = this.vel.normalize();
+
+    // If there's no movement, use the last movement direction
+    if (attackDirection.equals(Vector.Zero)) {
+        attackDirection = this.lastMovementDirection;
+    }
+
+    // Update lastMovementDirection in case the attack updates it (this ensures it gets updated even if there's no movement)
+    if (!attackDirection.equals(Vector.Zero)) {
+        this.lastMovementDirection = attackDirection;
+    }
+
+    // Position the attack in front of the player
+    const attackOffset = attackDirection.scale(this.width / 2 + 30);
+    let attack = new Actor({
+        pos: this.pos.add(attackOffset), // Place the attack in front of the player
+        width: 30,    // Define the collision hitbox width
+        height: 30,   // Define the collision hitbox height
+        color: Color.Transparent // Set to transparent if using a sprite
+    });
+
+    attack.body.collisionType = CollisionType.Passive; // Passive to detect collisions but not to interfere
+
+    // Calculate the rotation based on the attackOffset
+    const angleOfRotation = Math.atan2(attackOffset.y, attackOffset.x);
+
+    // Add and configure the melee attack sprite
+    const meleeSprite = Resources.MeleeAttack.toSprite();
+    meleeSprite.scale = new Vector(0.5, 0.5); // Scale the sprite down
+    meleeSprite.anchor = new Vector(0.5, 0.5); // Set the sprite's anchor to its center
+    meleeSprite.rotation = angleOfRotation; // Rotate to match the attack offset
+
+    attack.graphics.use(meleeSprite);
+
+    // Add collision handler for attack
+    attack.on('collisionstart', (event) => {
+        if (event.other instanceof Enemy || event.other instanceof Enemy2 || event.other instanceof Boss) {
+            event.other.takeDamage(this.attack); // Decrease enemy health
+            attack.kill(); // Remove the attack actor
+        }
+    });
+
+    // Add the attack to the scene
+    this.scene.add(attack);
+    setTimeout(() => {
+        if (attack.scene) {
+            attack.kill();
+        }
+    }, 200);
+}
 
     onCollisionStart(event) {
         if (event.other instanceof Enemy || event.other instanceof Enemy2 || event.other instanceof Boss) {

@@ -5,14 +5,14 @@ import { Hostage } from './hostage.js';
 import { Enemy } from './enemy.js'
 import { Enemy2 } from './enemy2.js'
 
-export class HostageQuinten extends Scene {
+export class Hostage2 extends Scene {
     constructor() {
         super();
     }
 
     onInitialize(engine) {
         // Assuming you have a full-screen image in your Resources class
-        const backgroundImage = Resources.HostageMapQuinten.toSprite();
+        const backgroundImage = Resources.HostageRoom2.toSprite();
 
         // Create an Actor to hold the image
         const backgroundActor = new Actor({
@@ -41,23 +41,11 @@ export class HostageQuinten extends Scene {
         this.add(player)
         player.vel = Vector.Zero
 
-        const fontein = new Actor({
-            width: 250,
-            height: 250,
-            anchor: new Vector(0.5, 0.5),
-            pos: new Vector(150, 400),
-            collisionType: CollisionType.Fixed, // Define the collision type
-            z: 1
-        })
-        const fonteinImage = Resources.Fontein.toSprite();
-        fontein.graphics.use(fonteinImage);
-        this.add(fontein);
-
         const tree = new Actor({
             width: 50,
             height: 50,
             anchor: new Vector(0.5, 0.8),
-            pos: new Vector(150, 200),
+            pos: new Vector(300, 200),
             collisionType: CollisionType.Fixed, // Define the collision type
             z: 3
         })
@@ -95,8 +83,8 @@ export class HostageQuinten extends Scene {
             collisionType: CollisionType.Fixed, // Define the collision type
             z: 3
         })
-        hostage.pos = new Vector(400, 400)
-        const hostageImage = Resources.HostageQuinten.toSprite();
+        hostage.pos = new Vector(850, 200)
+        const hostageImage = Resources.Hostage2.toSprite();
         hostageImage.scale = new Vector(0.3, 0.3)
         hostage.graphics.use(hostageImage);
         this.add(hostage)
@@ -105,7 +93,7 @@ export class HostageQuinten extends Scene {
             width: 50,
             height: 50,
             anchor: new Vector(0.5, 0.8),
-            pos: new Vector(400, 450),
+            pos: new Vector(850, 250),
             collisionType: CollisionType.Passive, // Define the collision type
             z: 4
         })
@@ -114,7 +102,7 @@ export class HostageQuinten extends Scene {
         cage.graphics.use(cageImage);
         this.add(cage)
 
-        const meleeEnemy= new Enemy(600,700,1)
+        const meleeEnemy = new Enemy(600, 700, 1)
         this.add(meleeEnemy)
         const rangedEnemy = new Enemy2(400, 700, 1)
         this.add(rangedEnemy)

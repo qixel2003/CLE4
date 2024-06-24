@@ -20,6 +20,8 @@ const Resources = {
     //Main Menu Image
     MainMenu: new ImageSource('images/mainmenu.png'),
     HostageMapQuinten: new ImageSource('images/mapspritequinten.jpg'),
+    BossRoom: new ImageSource('images/map_boss.png'),
+    HostageRoom2: new ImageSource('images/mapspritehostage2.jpg'),
 
     Fontein: new ImageSource('images/fontein.png'),
     Tree: new ImageSource('images/tree.png'),
@@ -28,6 +30,8 @@ const Resources = {
 
     //Hostages
     HostageQuinten: new ImageSource('images/hostage4.png'),
+    Hostage2: new ImageSource('images/hostage2.png'),
+    Hostage3: new ImageSource('images/hostage3.png')
 };
 
 
