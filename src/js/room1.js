@@ -30,4 +30,4 @@ export class Room1 extends Scene {
         });
     }
 }
-new Level
+new Room1

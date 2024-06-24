@@ -14,9 +14,18 @@ export class Enemy extends Actor {
 
 
        if (lvl==1) {
-         this.health = 10;
-         this.attack = 2;
+         this.health = 2;
+         this.attack = 1;
        }
+        else if (lvl == 2) {
+            this.health = 5;
+            this.attack = 2;
+        }
+        else if (lvl == 3) {
+            this.health = 7;
+            this.attack = 2;
+        }
+
     }
 
     onInitialize(engine) {
