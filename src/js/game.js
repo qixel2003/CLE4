@@ -15,6 +15,8 @@ import { Room1 } from './room1.js'
 
 
 import { BossRoom } from './sceneBossRoom.js'
+import { Hostage2 } from './scenehostage2.js'
+import { Hostage3 } from './scenehostage3.js'
 
 // import { Level } from './room1.js'
 // import { Level2 } from './room2.js'
@@ -49,14 +51,17 @@ export class Game extends Engine {
         // this.add('levelclear', new LevelClear())
         // this.goToScene('intro')
         // this.goToScene('room1')
-        this.goToScene('roomQ1')
+        // this.goToScene('roomQ1')
 
 
         // this.add('hostageQ', new HostageQuinten())
         // this.goToScene('hostageQ')
-
-        this.add('boss', new BossRoom())
-        this.goToScene('boss')
+        // this.add('boss', new BossRoom())
+        // this.goToScene('boss')
+        // this.add('hostage2', new Hostage2())
+        // this.goToScene('hostage2')
+        this.add('hostage3', new Hostage3())
+        this.goToScene('hostage3')
 
         
         //Player heeft nodig: health, attack, defence en rangedAttack unlock.
