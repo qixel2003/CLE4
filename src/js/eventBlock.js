@@ -1,25 +1,24 @@
 import { Actor, Color, Vector, Label, CollisionType, Engine, FontUnit, FontStyle, TextAlign } from "excalibur";
 import { Player } from './player.js';
 
-export class Hostage extends Actor {
-    constructor() {
+export class EventBlock extends Actor {
+    constructor(x, y, name, line) {
         super({
             width: 50,
             height: 50,
-            color: Color.Blue, // Hostage color
-            collisionType: CollisionType.Fixed // Hostage is immovable
+            color: Color.Blue, // Block color
+            collisionType: CollisionType.Passive // Block is immovable
         });
 
-        this.text = "Help me!!!";
-
-        this.on('collisionstart', (event) => this.onCollisionStart(event));
-
+        this.tag = name;
+        this.text = line;
+        this.pos= new Vector(x,y);
     }
 
     onInitialize(engine) {
         // Create a label and configure its appearance
         const label = new Label({
-            text: this.text,
+            text: this.tag,
             pos: new Vector(-25, -this.height / 2 - 20), // Position above the actor
             color: Color.White,
             fontSize: 20, // Font size in pixels
@@ -30,12 +29,15 @@ export class Hostage extends Actor {
 
         // Add the label as a child of the hostage
         this.addChild(label);
+
+        this.on('collisionstart', (event) => {
+            if (event.other instanceof Player) {
+                engine.currentScene.displayMessage(this.text); // Call the method to display the message
+                engine.currentScene.createFire(); // Call the method to start the fire
+
+            }
+        });
     }
 
-    onCollisionStart(event) {
-        if (event.other instanceof Player) {
-            this.kill();
-            console.log("Collision with player started");
-        }
-    }
+    
 }

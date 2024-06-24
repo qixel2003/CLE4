@@ -98,56 +98,11 @@ export class Player extends Actor {
         }
         this.vel = vel;
 
-<<<<<<< Updated upstream
-=======
         // //Controller Movement
->>>>>>> Stashed changes
         // const gamepad = engine.input.gamepads.at(0); // Get the first connected gamepad
         // if (gamepad) {
         //     let moveDirection = Vector.Zero.clone();
 
-<<<<<<< Updated upstream
-        //     // Define a deadzone to prevent unintended movement from slight stick drift
-        //     const deadzone = 0.1;
-        //     const leftStickX = gamepad.getAxes(Input.Axes.LeftStickX);
-        //     const leftStickY = gamepad.getAxes(Input.Axes.LeftStickY);
-
-        //     // Read stick input with deadzone
-        //     if (Math.abs(leftStickX) > deadzone) {
-        //         moveDirection.x = leftStickX;
-        //     }
-        //     if (Math.abs(leftStickY) > deadzone) {
-        //         moveDirection.y = leftStickY;
-        //     }
-
-        //     // Only check D-pad buttons if stick input is zero
-        //     if (moveDirection == null) {
-        //         if (gamepad.isButtonPressed(Input.Buttons.DpadLeft)) {
-        //             moveDirection.x = -1;
-        //         }
-        //         if (gamepad.isButtonPressed(Input.Buttons.DpadRight)) {
-        //             moveDirection.x = 1;
-        //         }
-        //         if (gamepad.isButtonPressed(Input.Buttons.DpadUp)) {
-        //             moveDirection.y = -1;
-        //         }
-        //         if (gamepad.isButtonPressed(Input.Buttons.DpadDown)) {
-        //             moveDirection.y = 1;
-        //         }
-        //     }
-
-        //     // Normalize and scale the direction vector if it's not zero
-        //     if (!moveDirection == null) {
-        //         moveDirection = moveDirection.normalize().scale(150); // Adjust speed as needed
-        //     }
-
-        //     // Set the player's velocity
-        //     this.vel = moveDirection;
-        // }
-
-        // Handle melee attack Face1 = A or X Face2 = B or Circle Face3 = X or Square Face4 = Y or Triangle
-        // Controller = || gamepad.isButtonPressed(Input.Buttons.Face1)
-=======
         //     // Read D-pad as axes (commonly mapped to left stick or D-pad axes)
         //     if (gamepad.getAxes(Input.Axes.LeftStickX) !== 0) {
         //         moveDirection.x = gamepad.getAxes(Input.Axes.LeftStickX);
@@ -178,7 +133,6 @@ export class Player extends Actor {
         // }
 
         // Handle melee attack Face1 = A or X Face2 = B or Circle Face3 = X or Square Face4 = Y or Triangle
->>>>>>> Stashed changes
         if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
             this.meleeAttack();
         }

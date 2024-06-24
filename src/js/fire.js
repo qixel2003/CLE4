@@ -1,14 +1,22 @@
 import { Actor, Color, Vector, Label, CollisionType, Engine, FontUnit, FontStyle, TextAlign } from "excalibur";
+import { Resources, ResourceLoader } from './resources.js';
 import { Player } from './player.js';
+import { Hostage } from "./hostage.js";
+import { Cage } from "./cage.js";
 
-export class Hostage extends Actor {
-    constructor() {
+export class Fire extends Actor {
+    constructor(x,y) {
         super({
             width: 50,
             height: 50,
-            color: Color.Blue, // Hostage color
-            collisionType: CollisionType.Fixed // Hostage is immovable
+            anchor: new Vector(0.5, 0.3),
+            pos: new Vector(x, y),
+            collisionType: CollisionType.Passive, // Define the collision type
+            z: 4
         });
+
+        this.graphics.use(Resources.Fire.toSprite())
+
 
         this.text = "Help me!!!";
 
@@ -33,8 +41,8 @@ export class Hostage extends Actor {
     }
 
     onCollisionStart(event) {
-        if (event.other instanceof Player) {
-            this.kill();
+        if (event.other instanceof Hostage || event.other instanceof Cage) {
+            event.other.kill();
             console.log("Collision with player started");
         }
     }
