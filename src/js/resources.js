@@ -7,6 +7,11 @@ const Resources = {
     EnemyMelee: new ImageSource('images/Melee_Enemy_Sprite.png'),
     EnemyRanged: new ImageSource('images/Ranged_Enemy_Sprite.png'),
     MeleeAttack: new ImageSource('images/melee_attack.png'), // Add your melee attack sprite
+    Fire: new ImageSource('images/fire.png'),
+    Cage: new ImageSource('images/cage.png'),
+    Noordpleinlicht: new ImageSource('images/noordlicht.png'),
+    Lichten: new ImageSource('images/lichten.png'),
+    Ginger: new ImageSource('images/hostage1.png'),
 
     //Powerups
     AttackBoost: new ImageSource('images/powerAttack.png'),

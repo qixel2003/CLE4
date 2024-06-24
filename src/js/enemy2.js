@@ -13,8 +13,16 @@ export class Enemy2 extends Actor {
         this.body.collisionType = CollisionType.Active;
 
         if (lvl == 1) {
-            this.health = 10;
+            this.health = 1;
             this.attack = 2;
+        }
+        else if (lvl == 2) {
+            this.health = 3;
+            this.attack = 2;
+        }
+        else if (lvl == 3) {
+            this.health = 5;
+            this.attack = 3;
         }
 
         // Timer for shooting projectiles
