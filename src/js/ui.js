@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { ScreenElement, Label, Vector, Font, FontUnit } from 'excalibur';
+import { ScreenElement, Label, Vector, Font, FontUnit, Color } from 'excalibur';
 
 export class UI extends ScreenElement {
     constructor(player) {
@@ -16,8 +16,9 @@ export class UI extends ScreenElement {
             z: 9,
             font: new Font({
                 family: 'impact',
-                size: 24,
-                unit: FontUnit.Px
+                size: 48,
+                unit: FontUnit.Px,
+                color: Color.White
             })
         });
 
