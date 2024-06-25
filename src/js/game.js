@@ -53,12 +53,12 @@ export class Game extends Engine {
         // this.goToScene('roomQ1')
 
 
-        this.add('hostageQ', new HostageQuinten())
-        // this.goToScene('hostageQ')
-        this.add('boss', new BossRoom())
-        // this.goToScene('boss')
-        this.add('hostage2', new Hostage2())
-        // this.goToScene('hostage2')
+        // this.add('hostageQ', new HostageQuinten())
+        // // this.goToScene('hostageQ')
+        // this.add('boss', new BossRoom())
+        // // this.goToScene('boss')
+        // this.add('hostage2', new Hostage2())
+        // // this.goToScene('hostage2')
         this.add('hostage3', new Hostage3())
         this.goToScene('hostage3')
 
