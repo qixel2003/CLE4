@@ -78,7 +78,7 @@ export class Player extends Actor {
 
 
 
-        // Lees welke key er wordt gedrukt
+        // // Lees welke key er wordt gedrukt
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
             vel = vel.add(new Vector(0, -1));
             this.graphics.use('runfront');
@@ -107,51 +107,51 @@ export class Player extends Actor {
             this.lastMovementDirection = this.vel.normalize();
         }
 
-        // const gamepad = engine.input.gamepads.at(0); // Get the first connected gamepad
-        // if (gamepad) {
-        //     let moveDirection = Vector.Zero.clone();
+        const gamepad = engine.input.gamepads.at(0); // Get the first connected gamepad
+        if (gamepad) {
+            let moveDirection = Vector.Zero.clone(); // Initialize movement direction to zero
+            console.log("controller aan")
 
-        //     // Define a deadzone to prevent unintended movement from slight stick drift
-        //     const deadzone = 0.1;
-        //     const leftStickX = gamepad.getAxes(Input.Axes.LeftStickX);
-        //     const leftStickY = gamepad.getAxes(Input.Axes.LeftStickY);
+            // Define a deadzone to prevent unintended movement from slight stick drift
+            const deadzone = 0.1;
+            const leftStickX = gamepad.getAxes(Input.Axes.LeftStickX);
+            const leftStickY = gamepad.getAxes(Input.Axes.LeftStickY);
 
-        //     // Read stick input with deadzone
-        //     if (Math.abs(leftStickX) > deadzone) {
-        //         moveDirection.x = leftStickX;
-        //     }
-        //     if (Math.abs(leftStickY) > deadzone) {
-        //         moveDirection.y = leftStickY;
-        //     }
+            // Only check D-pad buttons if stick input is zero
+            if (moveDirection.equals(Vector.Zero)) {
+                if (gamepad.isButtonPressed(Input.Buttons.DpadLeft)) {
+                    moveDirection.x = -1;
+                    this.graphics.use('runleft');
+                }
+                if (gamepad.isButtonPressed(Input.Buttons.DpadRight)) {
+                    moveDirection.x = 1;
+                    this.graphics.use('runright');
+                }
+                if (gamepad.isButtonPressed(Input.Buttons.DpadUp)) {
+                    moveDirection.y = -1;
+                    this.graphics.use('runfront');
+                }
+                if (gamepad.isButtonPressed(Input.Buttons.DpadDown)) {
+                    moveDirection.y = 1;
+                    this.graphics.use('runback');
+                }
+            }
 
-        //     // Only check D-pad buttons if stick input is zero
-        //     if (moveDirection == null) {
-        //         if (gamepad.isButtonPressed(Input.Buttons.DpadLeft)) {
-        //             moveDirection.x = -1;
-        //         }
-        //         if (gamepad.isButtonPressed(Input.Buttons.DpadRight)) {
-        //             moveDirection.x = 1;
-        //         }
-        //         if (gamepad.isButtonPressed(Input.Buttons.DpadUp)) {
-        //             moveDirection.y = -1;
-        //         }
-        //         if (gamepad.isButtonPressed(Input.Buttons.DpadDown)) {
-        //             moveDirection.y = 1;
-        //         }
-        //     }
+            // Normalize and scale the direction vector if it's not zero
+            if (!moveDirection.equals(Vector.Zero)) {
+                moveDirection = moveDirection.normalize().scale(200); // Adjust speed as needed
+            }
 
-        //     // Normalize and scale the direction vector if it's not zero
-        //     if (!moveDirection == null) {
-        //         moveDirection = moveDirection.normalize().scale(150); // Adjust speed as needed
-        //     }
+            // Set the player's velocity
+            this.vel = moveDirection; // Ensure this.vel is the correct property for velocity
+        } else {
+            console.log("No gamepad connected or gamepad not detected");
+        }
 
-        //     // Set the player's velocity
-        //     this.vel = moveDirection;
-        // }
 
         // Handle melee attack Face1 = A or X Face2 = B or Circle Face3 = X or Square Face4 = Y or Triangle
-        // Controller = || gamepad.isButtonPressed(Input.Buttons.Face1)
-        if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+        
+        if (engine.input.keyboard.wasPressed(Input.Keys.Space)|| gamepad.isButtonPressed(Input.Buttons.Face1)) {
             this.meleeAttack();
         }
 
