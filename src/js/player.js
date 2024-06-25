@@ -1,4 +1,4 @@
-import { Actor, Color, Vector, Input, CollisionType, SpriteSheet, Animation } from "excalibur";
+import { Actor, Color, Vector, Input, CollisionType, SpriteSheet, Animation, Shape } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
 import { Enemy } from './enemy.js';
 import { Enemy2 } from './enemy2.js'; // Import Enemy2
@@ -39,6 +39,8 @@ export class Player extends Actor {
 
         // Zet collision op Active voor de beste ervaring.
         this.body.collisionType = CollisionType.Active;
+        const body = Shape.Box(45, 60, new Vector(.5, .6))
+        this.collider.set(body)
 
         // Variables for handling enemy collision and health reduction
         this.isCollidingWithEnemy = false;

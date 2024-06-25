@@ -1,4 +1,4 @@
-import { Scene, Actor, Engine, Vector, Color } from 'excalibur';
+import { Scene, Actor, Engine, Vector, Color, Keys, } from 'excalibur';
 import { Resources, ResourceLoader } from './resources.js'; // Assuming Resources is where your images are
 
 export class MainMenu extends Scene {
@@ -32,5 +32,15 @@ export class MainMenu extends Scene {
 
         // Add the actor to the scene
         this.add(backgroundActor);
+    }
+
+    onActivate() {
+        this.engine.input.keyboard.off("click");
+
+        this.engine.input.keyboard.on("press", (event) => {
+            if(event.key === Keys.Space) {
+                this.engine.goToScene();
+            }
+        })
     }
 }

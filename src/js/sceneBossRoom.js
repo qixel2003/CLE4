@@ -2,6 +2,7 @@ import { Scene, Actor, Engine, Vector, Color } from 'excalibur';
 import { Resources, ResourceLoader } from './resources.js'; // Assuming Resources is where your images are
 import { Boss } from './boss.js';
 import { Player } from './player.js';
+import { DoorStart, Door1, Door3 } from './door.js';
 
 export class BossRoom extends Scene {
     constructor() {
@@ -40,5 +41,14 @@ export class BossRoom extends Scene {
 
         const player = new Player
         this.add(player)
+
+        const door = new DoorStart(600, 690);
+        this.add(door)
+
+        const doorHostageQ = new Door1(25, 375);
+        this.add(doorHostageQ)
+
+        const doorHostage3 = new Door3(1180, 375);
+        this.add(doorHostage3)
     }
 }

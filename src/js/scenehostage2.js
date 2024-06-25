@@ -4,6 +4,7 @@ import { Player } from './player.js';
 import { Hostage } from './hostage.js';
 import { Enemy } from './enemy.js'
 import { Enemy2 } from './enemy2.js'
+import { Door1, DoorStart } from './door.js';
 
 export class Hostage2 extends Scene {
     constructor() {
@@ -54,17 +55,17 @@ export class Hostage2 extends Scene {
         this.add(tree);
 
         const lantern1 = new Actor({
-            width: 50,
+            width: 25,
             height: 50,
-            anchor: new Vector(0.5, 0.8),
+            anchor: new Vector(0.4, 0.8),
             pos: new Vector(1000, 200),
             collisionType: CollisionType.Fixed, // Define the collision type
             z: 3
         })
         const lantern2 = new Actor({
-            width: 50,
+            width: 25,
             height: 50,
-            anchor: new Vector(0.5, 0.8),
+            anchor: new Vector(0.4, 0.8),
             pos: new Vector(1000, 550),
             collisionType: CollisionType.Fixed, // Define the collision type
             z: 3
@@ -106,5 +107,12 @@ export class Hostage2 extends Scene {
         this.add(meleeEnemy)
         const rangedEnemy = new Enemy2(400, 700, 1)
         this.add(rangedEnemy)
+
+        const doorHostageQ = new Door1(600, 25)
+        this.add(doorHostageQ)
+
+        const doorStart = new DoorStart(1180, 375)
+        this.add(doorStart)
+
     }
 }

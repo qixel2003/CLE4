@@ -1,7 +1,7 @@
 import { Actor, Engine, Vector, Timer, CollisionType, Color, SpriteSheet, Animation } from 'excalibur';
 import { Resources, ResourceLoader } from './resources.js';
 import { Player } from './player.js';
-import { Resources } from './resources.js';
+
 
 // Utility function to generate a range of numbers
 function range(start, end) {
@@ -16,8 +16,8 @@ export class Boss extends Actor {
     constructor() {
         super({
             pos: new Vector(600, 200), // Positioning the boss in the center
-            width: 100,
-            height: 100,
+            width: 250,
+            height: 250,
             color: Color.Red // Boss color
         });
 
@@ -30,7 +30,7 @@ export class Boss extends Actor {
 
         const attackSheet = SpriteSheet.fromImageSource({
             image: Resources.Boss,
-            grid: { rows: 1, columns: 12, spriteWidth: 250, spriteHeight: 250 }
+            grid: { rows: 1, columns: 12, spriteWidth: 256, spriteHeight: 256 }
         });
 
         this.idle = attackSheet.sprites[0]; // no animation

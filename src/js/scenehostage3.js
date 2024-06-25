@@ -5,6 +5,7 @@ import { Hostage } from './hostage.js';
 import { Enemy } from './enemy.js'
 import { Enemy2 } from './enemy2.js'
 import { UI } from './ui.js';
+import { Door4, DoorBoss } from './door.js';
 
 export class Hostage3 extends Scene {
     constructor() {
@@ -143,5 +144,13 @@ export class Hostage3 extends Scene {
         this.add(meleeEnemy)
         const rangedEnemy = new Enemy2(400, 700, 1)
         this.add(rangedEnemy)
+
+        const doorBoss = new DoorBoss(25, 375);
+        this.add(doorBoss)
+
+        const doorHostage4 = new Door4(600, 690)
+        this.add(doorHostage4)
+
+
     }
 }

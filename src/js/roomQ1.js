@@ -6,9 +6,10 @@ import { Hostage } from './hostage.js'
 import { Cage } from './cage.js'
 import { Enemy } from './enemy.js'
 import { Enemy2 } from './enemy2.js'
-import { RoomQbg } from './roomQbg.js'
+// import { RoomQbg } from './roomQbg.js'
 import { EventBlock } from './eventBlock.js'
 import { Fire } from './fire.js'
+import { DoorBoss, Door2 } from './door.js'
 
 
 
@@ -27,8 +28,8 @@ export class RoomQ1 extends Scene {
         this.score = 0;
         console.log("start the game!");
 
-        const backg = new RoomQbg(600,400);
-        this.add(backg);
+        // const backg = new RoomQbg(600,400);
+        // this.add(backg);
 
         this.createPlayer(10, 2, 20, false);
         this.createHostage(1000, 400);
@@ -47,6 +48,9 @@ export class RoomQ1 extends Scene {
             z: 100 // Ensure the label is on top
         });
         this.add(this.messageLabel);
+
+        
+
     }
 
     onPreUpdate(engine) {
@@ -80,7 +84,7 @@ export class RoomQ1 extends Scene {
             z: 3
         })
         hostage.pos = new Vector(x, y)
-        const hostageImage = Resources.Ginger.toSprite();
+        const hostageImage = Resources.Hostage1.toSprite();
         hostageImage.scale = new Vector(0.3, 0.3)
         hostage.graphics.use(hostageImage);
         this.add(hostage)
