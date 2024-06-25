@@ -93,6 +93,8 @@ export class Enemy2 extends Actor {
 
             const direction = player.pos.sub(this.pos).normalize();
             projectile.vel = direction.scale(300); // Speed of the projectile
+            projectile.graphics.use(Resources.FireBall.toSprite());
+
 
             projectile.on('collisionstart', (event) => {
                 if (event.other instanceof Player) {

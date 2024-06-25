@@ -5,6 +5,8 @@ import { Hostage } from './hostage.js';
 import { Enemy } from './enemy.js'
 import { Enemy2 } from './enemy2.js'
 import { DoorBoss, Door2 } from './door.js'
+import { UI } from './ui.js';
+
 
 export class HostageQuinten extends Scene {
     constructor() {
@@ -41,6 +43,9 @@ export class HostageQuinten extends Scene {
         const player = new Player(10, 2, 20, false);
         this.add(player)
         player.vel = Vector.Zero
+
+        const playerUI = new UI(player)
+        this.add(playerUI)
 
         const fontein = new Actor({
             width: 250,

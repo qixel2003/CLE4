@@ -66,6 +66,8 @@ export class Boss extends Actor {
         if (this.health <= 10) {
             this.phase = '2';
         }
+        console.log(`Enemy health: ${this.health}`);
+
     }
 
     performAttack(engine) {
@@ -120,6 +122,8 @@ export class Boss extends Actor {
 
             const direction = player.pos.sub(this.pos).normalize();
             projectile.vel = direction.scale(300); // Speed of the projectile
+            projectile.graphics.use(Resources.FireBall.toSprite());
+
 
             projectile.on('collisionstart', (event) => {
                 if (event.other instanceof Player) {
@@ -144,8 +148,8 @@ export class Boss extends Actor {
 
         const attackEffect = new Actor({
             pos: new Vector(350, 400), // Center of the left half of the screen
-            width: 400, // Cover the left half horizontally
-            height: 600, // Cover the entire screen vertically
+            width: 500, // Cover the left half horizontally
+            height: 700, // Cover the entire screen vertically
             color: Color.Blue,
             opacity: 0.5,
             collisionType: CollisionType.Passive // Passive to detect collisions without affecting physics
@@ -167,8 +171,8 @@ export class Boss extends Actor {
 
         const attackEffect = new Actor({
             pos: new Vector(850, 400), // Center of the right half of the screen
-            width: 400, // Cover the right half horizontally
-            height: 600, // Cover the entire screen vertically
+            width: 500, // Cover the right half horizontally
+            height: 700, // Cover the entire screen vertically
             color: Color.Green,
             opacity: 0.5,
             collisionType: CollisionType.Passive // Passive to detect collisions without affecting physics

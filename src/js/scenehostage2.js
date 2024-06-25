@@ -5,6 +5,8 @@ import { Hostage } from './hostage.js';
 import { Enemy } from './enemy.js'
 import { Enemy2 } from './enemy2.js'
 import { Door1, DoorStart } from './door.js';
+import { UI } from './ui.js';
+
 
 export class Hostage2 extends Scene {
     constructor() {
@@ -41,6 +43,9 @@ export class Hostage2 extends Scene {
         const player = new Player(10, 2, 20, false);
         this.add(player)
         player.vel = Vector.Zero
+
+        const playerUI = new UI(player)
+        this.add(playerUI)
 
         const tree = new Actor({
             width: 50,

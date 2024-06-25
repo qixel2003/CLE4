@@ -3,6 +3,8 @@ import { Resources, ResourceLoader } from './resources.js'; // Assuming Resource
 import { Boss } from './boss.js';
 import { Player } from './player.js';
 import { DoorStart, Door1, Door3 } from './door.js';
+import { UI } from './ui.js';
+
 
 export class BossRoom extends Scene {
     constructor() {
@@ -39,8 +41,11 @@ export class BossRoom extends Scene {
         const boss = new Boss(400, 600);
         this.add(boss)
 
-        const player = new Player
+        const player = new Player(10, 2, 20, false);
         this.add(player)
+
+        const playerUI = new UI(player)
+        this.add(playerUI)
 
         const door = new DoorStart(600, 690);
         this.add(door)
