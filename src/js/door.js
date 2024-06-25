@@ -148,7 +148,7 @@ export class Door4 extends Actor {
     onCollisionStart(event) {
         if (event.other instanceof Player) {
             console.log("Going to the next scene");
-            // this.scene.engine.goToScene('roomQ1')
+            this.scene.engine.goToScene('roomQ1')
         }
     }
 }
